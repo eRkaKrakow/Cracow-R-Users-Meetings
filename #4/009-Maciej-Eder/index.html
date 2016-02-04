@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Atrybucja autorska i nie tylko: analiza tekstów za pomocą pakietu ‘stylo’</title>
+    
+    <meta name="description" content="Atrybucja autorska i nie tylko: analiza tekstów za pomocą pakietu ‘stylo’" />
+    <meta name="author" content="Maciej Eder" />
+
+    <link href="css/impress-demo.css" rel="stylesheet" /> 
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- Latest compiled and minified CSS -->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="css/font-awesome-ie7.css" rel="stylesheet" />   
+    <link href="css/animate.css" rel="stylesheet" />   
+
+</head>
+
+
+
+<body class="impress-not-supported">
+
+  <div class="fallback-message">
+    <p>Simpler version</p>
+  </div>
+
+
+<div class="navegate"><span class="font doodle-nav">navigate</span></div>
+
+<div id="impress" data-transition-duration="700">
+
+
+    <!-- title -->
+    <div id="title" class="step" data-x="-30000" data-y="-20000" data-z="1000" data-scale="65">
+      <p style="color: red; font-size: 120%;">Atrybucja autorska i nie tylko:</p> 
+      <p style="color: red; font-size: 120%;">analiza tekstów</p>
+      <p style="color: red; font-size: 120%;">za pomocą pakietu ‘stylo’</p>
+      <p style="color: white; font-size: 70%;"> . </p>
+      <p style="font-size: 70%;">Maciej Eder</p>
+      <p style="color: white; font-size: 10%;"> . </p>
+      <p style="font-size: 40%;">Uniwersytet Pedagogiczny, Kraków</p>
+      <p style="font-size: 40%;">Instytut Języka Polskiego PAN, Kraków</p>
+      <p align="right" style="margin-top: 2em; font-size: 40%; color: blue">[nawigacja za pomocą strzałek lub spacji]</p>
+    </div>
+
+
+    <!-- overview
+    <div id="overview" class="step" data-x="1000" data-y="0" data-rotate-x="10" data-z="0" data-scale="8">
+    </div>
+-->
+
+
+    <!-- slide 1 -->
+
+    <div id="contents" class="step" data-x="-2500" data-y="-2500" data-z="0" data-scale="0.5">
+      <h1>Spis treści</h1>
+        <ul>
+          <li>atrybucja autorska w 3 słowach</li>
+          <li>Ajschylos i jego (?) tragedie</li>
+          <li>stylometria wielkoskalowa</li>
+        </ul>
+    </div>
+
+    
+    <div id="fingerprint" class="step" data-x="-2500" data-y="-1700" data-z="0" data-scale="0.5">
+      <h1>Autorski odcisk palca</h1>
+        <ul>
+          <li>niewidoczny gołym okiem</li>
+          <li>poza autorską kontrolą</li>
+          <li>odporny na imitację, plagiat czy parodię</li>
+          <li>np.: <span style="color: blue;">frekwencje najczęstszych słów</span></li>
+        </ul>
+    </div>
+
+    
+    <div id="mfw" class="step" data-x="-2600" data-y="-1100" data-z="-300" data-scale="0.5">
+      <h1 style="margin-bottom: 0.5em;">Najczęstsze słowa</h1>
+        <p>‘It is a truth universally acknowledged, 
+          that a single man in possession of a good fortune, 
+          must be in want of a wife. . . ’
+        </p>
+        <p align="right" style="font-size: 70%; margin-bottom: 0.5em;">(<i>J. Austen, Pride and Prejudice</i>)</p>
+        <p>“<span style="color: blue;">the</span>” = 4.25%</p>
+        <p>“<span style="color: blue;">in</span>” = 3.45%</p>
+        <p>“<span style="color: blue;">of</span>” = 1.81%</p>
+        <p><span style="color: blue;">. . .</span></p>
+    </div>
+
+    
+    <div id="neighborship" class="step" data-x="-2700" data-y="-500" data-z="-600" data-scale="0.5">
+      <h1 style="margin-bottom: 1em;">Atrybucja autorska</h1>
+        <p style="margin-bottom: 0.5em;">Jeśli mamy:</p>
+        <ul>
+          <li>a <span style="color: blue;">tekst</span> o nieznanym autorstwie</li>
+          <li>a <span style="color: blue;">korpus porównawczy</span> o znanym autorstwie</li>
+        </ul>
+        <p>to czy można wśród nich odnaleźć <span style="color: blue;">‘najbliższego sąsiada’</span> spośród kandydatów?</p>
+    </div>
+
+    
+    <div id="attr_example" class="step" data-x="-2800" data-y="100" data-z="-900" data-scale="0.1">
+      <h1>Przykład: Ajschylos</h1>
+    </div>
+
+
+    <div id="aeschylus" class="step" data-x="-3000" data-y="300" data-z="-800" data-scale="0.1">
+      <h1 style="margin-bottom: 0.5em;">Ajschylos (525–456 p.n.e.)</h1>
+        <ul style="font-size: 70%;">
+          <li>siedem zachowanych tragedii</li>
+          <li>w tym <span style="color: blue;">Prometeusz w okowach</span></li>
+          <li>... czasem uważany za utwór nieautentyczny</li>
+        </ul>
+    </div>
+
+    
+    <div id="prometheus" class="step" data-x="-3000" data-y="500" data-z="-900" data-scale="0.1">
+      <h1>Problemy z autorstwem</h1>
+        <ul style="font-size: 70%;">
+          <li>Tzw. <span style="color: blue;">‘problem Zeusa’</span>:</li>
+          <ul style="margin-left: 3em; font-size: 80%;">
+            <li>cześć okazywana Zeusowi w tragediach Ajschylosa</li>
+            <li>Zeus potwornym tyranem w <i>Prometeuszu</i></li>
+          </ul>
+          <li>Różnice w <span style="color: blue;">wersyfikacji</span> między <i>Prometeuszem</i> i innymi sztukami</li>
+          <li><span style="color: blue;">Trzeci aktor</span> w jednej ze scen</li>
+        </ul>
+    </div>
+
+    
+    <div id="prometheus_attrib_1" class="step" data-x="-2000" data-y="1300" data-z="-1200" data-scale="0.5">
+      <h1 style="margin-bottom: 0.5em;">Trzej tragicy greccy</h1>
+        <p align="left">
+          <img src="img/tragoedia_graeca.png" width="600px"/>
+        </p>
+    </div>
+
+    
+    <div id="prometheus_attrib_2" class="step" data-x="-3000" data-y="1300" data-z="-900" data-scale="0.5">
+      <h1>Problem zbioru otwartego</h1>
+        <ul>
+          <li>Ajschylos</li>
+          <li>Sofokles</li>
+          <li>Eurypides</li>
+          <li style="color: blue;">Inny kandydat (?)</li>
+        </ul>
+    </div>
+
+    
+    <div id="prometheus_attrib_3" class="step" data-x="-3900" data-y="1100" data-z="-1500" data-scale="0.5">
+      <h1 style="margin-bottom: 0.5em;">To może dystraktor?</h1>
+        <p align="left">
+          <img src="img/greek_drama.png" width="600px"/>
+        </p>
+    </div>
+
+    
+    <div id="prometheus_attrib_4" class="step" data-x="-4000" data-y="500" data-z="-1800" data-scale="0.5">
+      <h1 style="margin-bottom: 0.5em;">Więcej dystraktorów</h1>
+        <p align="left">
+          <img src="img/greek_prose_drama.png" width="600px"/>
+        </p>
+    </div>
+
+    
+    <div id="prometheus_attrib_5" class="step" data-x="-4000" data-y="0" data-z="-1500" data-rotate-z="90" data-scale="0.1">
+      <h1>Napisał czy nie napisał?</h1>
+        <ul>
+          <li>Na wszystkich wykresach <i>Prometeusz</i> wyglądał dziwnie.</li>
+          <li>Dystraktory nie zaburzyły ogólnego obrazu.</li>
+          <li>Wydaje się, że tragedię napisał ktoś inny.</li>
+        </ul>
+    </div>
+
+    <!-- pakiet 'stylo' -->
+    <div id="stylo_package" class="step" data-x="-4000" data-y="-2500" data-z="-1500" data-scale="0.5">
+      <h1>Pakiet ‘stylo’</h1>
+        <ul>
+          <li>Open-source.</li>
+          <li>Graficzny interfejs (GUI).</li>
+          <li>Kompletny workflow do analizy tekstu.</li>
+          <li>Metody klasyfikacji nienadzorowane (PCA, MDS, ...) i nadzorowane (SVM, NSC, ...).</li>
+        </ul>
+    </div>
+
+    <div id="stylo_demo1" class="step" data-x="-4000" data-y="-2000" data-z="-1300" data-scale="0.5">
+      <h1>Pakiet ‘stylo’: </br> demonstracja</h1>
+    </div>
+    
+    <div id="stylo_demo2" class="step" data-x="-4000" data-y="-1500" data-z="-1100" data-scale="0.5">
+      <p align="left">
+        <img src="img/csg.png" width="900px"/>
+      </p>
+    </div>
+
+    <div id="stylo_demo3" class="step" data-x="-4000" data-y="-1000" data-z="-900" data-scale="0.5">
+      <p align="left">
+        <img src="img/136_MFWs.svg" width="1000px"/>
+      </p>
+    </div>
+
+    <div id="stylo_demo4" class="step" data-x="-4000" data-y="-500" data-z="-700" data-scale="0.5">
+      <p align="center">
+        <img src="img/Dickens_etc_1.jpg" width="600px"/>
+      </p>
+    </div>
+-
+    <div id="stylo_demo5" class="step" data-x="-5000" data-y="-800" data-z="-500" data-scale="0.5">
+      <p align="center">
+        <img src="img/Dickens_etc_2.jpg" width="600px"/>
+      </p>
+    </div>
+
+
+   <div id="stylo_demo6" class="step" data-x="-4900" data-y="-800" data-z="-50000" data-rotate-x="90" data-scale="0.5">
+      <h1 style="margin-bottom: 0.8em;">Kontakt i linki</h1>
+      <p>opis pakietu ‘stylo’:</p>
+      <p style="color: blue;"><a href="https://sites.google.com/site/computationalstylistics">https://sites.google.com/site/computationalstylistics</a></p>
+      <p style="margin-top: 0.8em;">pliki do pobrania:</p>
+      <p style="color: blue;"><a href="http://cran.r-project.org">http://cran.r-project.org</a></p>
+      <p style="color: blue;"><a href="https://github.com/computationalstylistics/stylo">https://github.com/computationalstylistics/stylo</a></p>
+      <p style="margin-top: 0.8em;">email: <span style="color: blue;">maciejeder [at] gmail.com</span></p>
+   </div>
+
+    
+    
+
+    
+    <!-- slide 1 -->
+
+    <div id="slide004" class="step" data-x="-1500" data-y="-1500" data-z="0" data-scale="0.5">
+      <h1>Stylometria wielkoskalowa</h1>
+      <p>o tym będzie następnym razem. . .</p>
+    </div>
+
+
+    <!-- overview -->
+    <div id="overview1" class="step" data-x="-2500" data-y="-500" data-rotate-x="10" data-z="0" data-scale="8">
+    </div>
+
+
+
+
+
+<!-- finish impress -->
+
+</div>
+
+
+
+
+<!-- <button id="next"><span class="next"><i class="icon-double-angle-right"></i></span></button> -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/impress.js"></script>
+<script src="js/script.js"></script>
+
+
+
+</body>
+</html>

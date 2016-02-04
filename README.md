@@ -1,1 +1,1 @@
-# R-users-meeting-in-Cracow
+# Cracow R Users Meeting

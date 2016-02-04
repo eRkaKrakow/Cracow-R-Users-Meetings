@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Large-scale stylometry using network analysis</title>
+    
+    <meta name="description" content="Stylometry with R: large-scale text analysis and the package 'stylo'" />
+    <meta name="author" content="Maciej Eder" />
+
+    <link href="css/impress-demo.css" rel="stylesheet" /> 
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- Latest compiled and minified CSS -->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="css/font-awesome-ie7.css" rel="stylesheet" />   
+    <link href="css/animate.css" rel="stylesheet" />   
+
+</head>
+
+
+
+<body class="impress-not-supported">
+
+  <div class="fallback-message">
+    <p>Simpler version</p>
+  </div>
+
+
+<div class="navegate"><span class="font doodle-nav">navigate</span></div>
+
+<div id="impress" data-transition-duration="700">
+
+
+    <!-- title -->
+    <div id="title" class="step" data-x="-30000" data-y="-20000" data-z="1000" data-scale="65">
+      <p style="color: red; font-size: 120%;">Stylometry with R:</p> 
+      <p style="color: red; font-size: 120%;">large-scale text analysis</p>
+      <p style="color: red; font-size: 120%;">and the package 'stylo'</p>
+      <p style="color: white; font-size: 70%;"> . </p>
+      <p style="font-size: 70%;">Maciej Eder</p>
+      <p style="color: white; font-size: 10%;"> . </p>
+      <p style="font-size: 40%;">Pedagogical University of Krakow, Poland</p>
+      <p style="font-size: 40%;">Polish Academy of Sciences, Krakow, Poland</p>
+      <p align="right" style="margin-top: 3em; font-size: 40%; color: blue">[use spacebar or left/right arrows to naviagate]</p>
+
+    </div>
+
+
+    <!-- overview -->
+    <div id="overview" class="step" data-x="1000" data-y="0" data-rotate-x="10" data-z="0" data-scale="8">
+    </div>
+
+
+
+
+    <!-- slide 1 -->
+
+    <div id="slide004" class="step" data-x="-1500" data-y="-1700" data-z="0" data-scale="0.5">
+      <h1>Aims of the study</h1>
+        <ul>
+          <li>Assessing large number of texts.</li>
+          <li>Leveraging existing explanatory methods.</li>
+          <li>Automatic analysis of textual relations...</li>
+          <li>... that will reveal groups of similar texts.</li>
+        </ul>
+    </div>
+
+    <div id="slide005" class="step" data-x="-1600" data-y="-1100" data-z="-300" data-scale="0.5">
+      <h1>Mapping literature</h1>
+        <ul>
+          <li>Chronology</li>
+          <li>Genre</li>
+          <li>Imitation</li>
+          <li>Authorship</li>
+          <li>...</li>
+        </ul>
+    </div>
+
+    <div id="slide006" class="step" data-x="-1700" data-y="-500" data-z="-600" data-scale="0.5">
+      <h1>Basic concepts</h1>
+        <ul>
+          <li>“Computation into criticism” (John Burrows)</li>
+          <li>“Distant reading” (Franco Moretti)</li>
+          <li>“Macroanalysis” (Matthew Jockers)</li>
+          <li>Big Data</li>
+          <li>Authorship attribution</li>
+        </ul>
+    </div>
+
+    <div id="slide007" class="step" data-x="-1800" data-y="100" data-z="-900" data-scale="0.5">
+      <h1>Cluster analysis dendrograms</h1>
+        <ul>
+          <li>Highly dependent on feature selection</li>
+          <li>Highly dependent on similarity measure</li>
+          <li>Highly dependent on linkage algorithm</li>
+          <li>No validation provided</li>
+        </ul>
+    </div>
+
+
+
+    <!-- dendrogram -->
+    <div id="dendro_136" class="step" data-x="-500" data-y="-8000" data-z="10000" data-scale="0.5">
+      <p align="center">136 most frequent words<img src="img/136_MFWs.svg" width="1000px"/></p>
+    </div>
+
+    <!-- dendrogram -->
+    <div id="dendro_137" class="step" data-x="-500" data-y="-8000" data-z="10000" data-rotate-x="90" data-scale="0.5">
+      <p align="center">137 most frequent words<img src="img/137_MFWs.svg" width="1000px"/></p>
+    </div>
+
+    <div id="where_is_the_truth" class="step" data-x="0" data-y="-8000" data-z="10000" data-rotate-x="90" data-scale="0.2">
+      <h1>Unstable results</h1>
+        <ul>
+          <li>Noise?</li>
+          <li>Unreliability of the linkage procedure?</li>
+          <li>More than one stylistic layer?</li>
+        </ul>
+    </div>
+
+
+    <!-- nearest neighbors -->
+    <div id="layers" class="step" data-x="500" data-y="-8000" data-z="10000" data-rotate-x="90" data-scale="0.5">
+      <p align="center"><img src="img/layers_in_literary_texts.png" height="600px"/></p>
+    </div>
+
+    <!-- nearest neighbors -->
+    <div id="consensus" class="step" data-x="1000" data-y="-8000" data-z="10000" data-rotate-x="00" data-scale="0.5">
+      <p align="center"><img src="img/66_english_novels_2.svg" height="800px"/></p>
+    </div>
+
+    <div id="00" class="step" data-x="1000" data-y="-8000" data-z="9000" data-rotate-z="25" data-scale="0.5">
+      <h1>A new technique: assumptions</h1>
+        <ul>
+          <li>Explanatory power of dendrograms.</li>
+          <li>Stable results and/or validation.</li>
+          <li>Scalability: 500 texts? 1000 texts? 31M texts?</li>
+        </ul>
+    </div>
+
+    <div id="attribution" class="step" data-x="2500" data-y="-8000" data-z="9000" data-rotate-z="0" data-scale="0.5">
+      <h1>Authorship attribution</h1>
+        <ul>
+          <li>An anonymous text is tested against a set of “candidates”.</li>
+          <li>Goal: to find the nearest neighbor.</li>
+          <li>Effective style-marker: most frequent words (grammatical words).</li>
+        </ul>
+    </div>
+
+
+    <!-- nearest neighbors -->
+    <div id="neighbors1" class="step" data-x="-500" data-y="-2300" data-z="300" data-scale="0.5">
+      <p align="center"><img src="img/neighbor1.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors2" class="step" data-x="0" data-y="-2300" data-z="300" data-scale="0.5">
+      <p align="center"><img src="img/neighbor2.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors3" class="step" data-x="500" data-y="-2300" data-z="300" data-scale="0.5">
+      <p align="center"><img src="img/neighbor3.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors4" class="step" data-x="1000" data-y="-2300" data-z="300" data-scale="0.5">
+      <p align="center"><img src="img/neighbor4.svg" height="300px"/></p>
+    </div>
+
+    <div id="slide000" class="step" data-x="1098" data-y="-2305" data-z="0" data-rotate-z="90" data-scale="0.05">
+      <h1>From attribution to stylometry</h1>
+        <ul>
+          <li>If it works with anonymous texts, ...</li>
+          <li>... what about extending the same procedure?</li>
+          <li>What about applying it to <i>all</i> texts?</li>
+        </ul>
+    </div>
+
+
+
+    <div id="neighbors5" class="step" data-x="-500" data-y="-1800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor5.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors6" class="step" data-x="0" data-y="-1800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor6.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors7" class="step" data-x="500" data-y="-1800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor7.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors8" class="step" data-x="1000" data-y="-1800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor8.svg" height="300px"/></p>
+    </div>
+
+<!--
+    <div id="freq_table" class="step" data-x="1012" data-y="-1285" data-z="-100" data-rotate-z="-45" data-scale="0.04">
+      <p align="center"><img src="img/freq_tables_1.png" height="500px"/></p>
+    </div>
+-->
+
+    <div id="slide001" class="step" data-x="2000" data-y="-2100" data-z="=-100" data-scale="0.3">
+      <h1>From stylometry to networks</h1>
+        <ul>
+          <li>Nearest neighbors can be represented as connected nodes of a network.</li>
+          <li>A variety of layout algorithms can be applied.</li>
+        </ul>
+    </div>
+
+    <div id="slide003" class="step" data-x="2500" data-y="-2100" data-z="0" data-rotate-z="45" data-scale="0.5">
+      <p align="center"><img src="img/sample_network.svg" height="300px"/></p>
+    </div>
+
+
+    <div id="slide020" class="step" data-x="2000" data-y="-2500" data-z="0" data-scale="0.3">
+      <h1>“Reliability, stupid!”</h1>
+        <ul>
+          <li>Instead of one analysis (e.g. 100 MFWs)...</li>
+          <li>... a whole range (100, 200, 300 MFW, etc.).</li>
+          <li>Next, particular “snapshots” summarized.</li>
+        </ul>
+    </div>
+
+
+    <div id="neighbors10" class="step" data-x="-500" data-y="-1300" data-z="0" data-scale="0.5">
+      <p>100 MFWs</p>
+      <p align="center"><img src="img/cons_network_1.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors11" class="step" data-x="0" data-y="-1300" data-z="0" data-scale="0.5">
+      <p>200 MFWs</p>
+      <p align="center"><img src="img/cons_network_2.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors12" class="step" data-x="500" data-y="-1300" data-z="0" data-scale="0.5">
+      <p>300 MFWs</p>
+      <p align="center"><img src="img/cons_network_3.svg" height="300px"/></p>
+    </div>
+
+    <div id="neighbors13" class="step" data-x="1000" data-y="-1300" data-z="0" data-scale="0.5">
+<!--      <p>consensus network</p> -->
+      <p align="center"><img src="img/cons_network_4.svg" height="300px"/></p>
+    </div>
+
+
+    <div id="slide002" class="step" data-x="2000" data-y="-1500" data-z="0" data-scale="0.3">
+      <h1>Importance of runners-up</h1>
+        <ul>
+          <li>Nearest neighbors = the most similar.</li>
+          <li>Runners-up: do they really deserve to be filtered out?</li>
+          <li>Solution: more connections!</li>
+        </ul>
+    </div>
+
+    <div id="consensus1" class="step" data-x="-500" data-y="-800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor10.svg" height="300px"/></p>
+    </div>
+
+    <div id="consensus2" class="step" data-x="0" data-y="-800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor11.svg" height="300px"/></p>
+    </div>
+
+    <div id="consensus3" class="step" data-x="500" data-y="-800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor12.svg" height="300px"/></p>
+    </div>
+
+    <div id="consensus4" class="step" data-x="1000" data-y="-800" data-z="0" data-scale="0.5">
+      <p align="center"><img src="img/neighbor13.svg" height="300px"/></p>
+    </div>
+
+
+
+
+    <!-- simple network -->
+    <div id="simple-network" class="step" data-x="0" data-y="0" data-z="300" data-scale="1">
+      <img src="img/raw_network.svg" height="700px"/>
+    </div>
+
+
+    <div id="slide008" class="step" data-x="1200" data-y="0" data-z="0" data-scale="0.3">
+      <h1>Traces of chronology?</h1>
+        <ul>
+          <li>“Ciceronianus es, non Christianus!” (God accusing St Jerome)</li>
+          <li>“Renovatio antiquitatis” (Renaissance humanists)</li>
+          <li>hypothesis: noticeable traces of chronology</li>
+        </ul>
+    </div>
+
+
+
+    <!-- network with names: chronology -->
+    <!-- na poprzednim obrazku najeżdzamy i zmieniamy zoom, tak by trafić
+    na wielkość zadaną w nast. slajdzie; czyli: zwiększasz nast, to zwiększ i tu-->
+    <div id="chronology" class="step" data-x="3000" data-y="0" data-z="0" data-scale="2">
+    </div>
+
+
+    <!-- chronology 1-->
+    <div id="chronology-zoom1" class="step" data-x="2500" data-y="0" data-z="0" data-scale="1">
+      <img src="img/chronology.svg" width="2000px"/>
+    </div>
+
+    <!-- chronology 2-->
+    <div id="chronology-zoom2" class="step" data-x="3500" data-y="0" data-z="0" data-scale="1">
+    </div>
+
+    <!-- chronology 2-->
+    <div id="chronology-zoom3" class="step" data-x="3300" data-y="450" data-z="0" data-scale="1">
+    </div>
+
+
+    <!-- genre: general -->
+    <div id="genre" class="step" data-x="3000" data-y="1000" data-rotate-x="90" data-z="1500" data-scale="2">
+    </div>
+
+
+    <!-- genre 1 -->
+    <div id="genre-zoom1" class="step" data-x="2500" data-y="1000" data-rotate-x="90" data-z="1500" data-scale="1">
+      <img src="img/genre.svg" width="2000px"/>
+    </div>
+
+    <!-- genre 2 -->
+    <div id="genre-zoom2" class="step" data-x="2500" data-y="1000" data-rotate-x="90" data-z="1100" data-scale="1">
+    </div>
+
+    <!-- genre 3 -->
+    <div id="genre-zoom3" class="step" data-x="3500" data-y="1000" data-rotate-x="90" data-z="1720" data-scale="1.2">
+    </div>
+
+
+    <!-- literary quality -->
+    <div id="quality" class="step" data-x="1000" data-y="2000" data-z="-1000" data-scale="2">
+    </div>
+ 
+    <div id="quality-zoom1" class="step" data-x="500" data-y="2000" data-z="-1000" data-scale="1">
+      <img src="img/masters_of_latin.svg" width="2000px"/>
+    </div>
+
+    <div id="quality-zoom2" class="step" data-x="1500" data-y="2300" data-z="-1000" data-scale="1.2">
+    </div>
+
+    <div id="quality-zoom3" class="step" data-x="1000" data-y="1700" data-z="-1000" data-scale="1">
+    </div>
+
+    <div id="quality1" class="step" data-x="1000" data-y="2000" data-z="-1000" data-scale="2">
+    </div>
+
+
+    <div id="slide009" class="step" data-x="2000" data-y="3000" data-z="-1000" data-scale="0.3">
+      <h1>How influential was Cicero?</h1>
+        <ul>
+          <li>Ciceronian Quarrel: the single most important debate of the Renaissance.</li>
+          <li>Imitation of the admirable Ciceronian style.</li>
+          <li>hypothesis: visible traces of Cicero in early modern Latin writings.</li>
+        </ul>
+    </div>
+
+
+    <!-- Cicero and his followers -->
+    <div id="cicero_and_others" class="step" data-x="4000" data-y="2500" data-z="-1000" data-scale="2">
+    </div>
+
+    <div id="cicero_zoom1" class="step" data-x="3500" data-y="2500" data-z="-1000" data-scale="1">
+      <img src="img/Cic_followers.svg" width="2000px"/>
+    </div>
+
+    <div id="cicero_zoom2" class="step" data-x="3600" data-y="2300" data-z="-1000" data-scale="0.8">
+    </div>
+
+    <div id="cicero_zoom3" class="step" data-x="4300" data-y="2600" data-z="-1000" data-scale="0.7">
+    </div>
+
+    <div id="conclusions" class="step" data-x="5800" data-y="3000" data-z="-1000" data-scale="0.3">
+      <h1>Conclusions</h1>
+        <ul>
+          <li>No clear chronological pattern.</li>
+          <li>Genre signal: predominant.</li>
+          <li>Masters of style tend to keep outside the network.</li>
+        </ul>
+    </div>
+
+
+    <div id="further" class="step" data-x="6500" data-y="3000" data-z="-800" data-scale="0.3">
+      <h1>R, 'stylo', Gephi</h1>
+        <ul>
+          <li><span  style="color: red">R</span> and the package <span  style="color: red">'stylo'</span> used to compute the nodes and the links</li>
+          <li><span  style="color: red">Gephi</span> used to produce the networks and to apply force-directed layout</li>
+        </ul>
+    </div>
+
+
+
+
+    
+    <!-- overview -->
+    <div id="overview1" class="step" data-x="1000" data-y="0" data-rotate-x="10" data-z="0" data-scale="8">
+    </div>
+
+    
+<!--
+    <div id="big-data6" class="step" data-x="-64208" data-y="-50300" data-z="0" data-scale="0.019">
+    <p>150 Latin texts (12Mb)
+      <svg width="601" height="621">
+        <circle cx="300" cy="320" r="300" stroke="green" stroke-width="2" fill="blue" style="fill-opacity:0.5; stroke-opacity:0.5" />
+      </svg>
+      </p>
+    </div>
+
+    <div id="big-data5" class="step" data-x="-64233" data-y="-50300" data-z="0" data-scale="0.056">
+    <p>100 typical novels (100Mb)
+      <svg width="601" height="621">
+        <circle cx="300" cy="320" r="300" stroke="green" stroke-width="2" fill="brown" style="fill-opacity:0.5; stroke-opacity:0.5" />
+      </svg>
+      </p>
+    </div>
+
+    <div id="big-data4" class="step" data-x="-64300" data-y="-50300" data-z="0" data-scale="0.178">
+    <p>1,000 books (1Gb)
+      <svg width="601" height="621">
+        <circle cx="300" cy="320" r="300" stroke="green" stroke-width="2" fill="orange" style="fill-opacity:0.5; stroke-opacity:0.5" />
+      </svg>
+      </p>
+    </div>
+
+    <div id="big-data3" class="step" data-x="-65000" data-y="-50000" data-z="0" data-scale="1.78">
+    <p>100,000 books (100Gb)
+      <svg width="601" height="621">
+        <circle cx="300" cy="320" r="300" stroke="green" stroke-width="2" fill="green" style="fill-opacity:0.5; stroke-opacity:0.5" />
+      </svg>
+      </p>
+    </div>
+
+    <div id="big-data2" class="step" data-x="-69000" data-y="-42000" data-z="0" data-scale="30.9">
+    <p>30,000,000 books
+      <svg width="601" height="621">
+        <circle cx="300" cy="320" r="300" stroke="green" stroke-width="2" fill="red" style="fill-opacity:0.5; stroke-opacity:0.5" />
+      </svg>
+      </p>
+    </div>
+
+    <div id="big-data1" class="step" data-x="-100000" data-y="-30000" data-z="0" data-scale="64.6">
+    <p>131,000,000 books
+      <svg width="601" height="621">
+        <circle cx="300" cy="320" r="300" stroke="green" stroke-width="2" fill="gray" style="fill-opacity:0.5; stroke-opacity:0.5" />
+      </svg>
+      </p>
+    </div>
+
+-->
+
+
+
+<!-- finish impress -->
+
+</div>
+
+
+<!--
+<div class="hint">
+    <p class="mouse">Use Arrows or SpaceBar keys to navigate</p>
+</div>
+-->
+
+<!-- <button id="next"><span class="next"><i class="icon-double-angle-right"></i></span></button> -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/impress.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
