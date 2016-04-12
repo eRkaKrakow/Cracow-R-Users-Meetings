@@ -1,0 +1,54 @@
+---
+title: "Entuzjastów R Krakowska Alternatywa"
+author: "Bartosz Sękiewicz"
+date: "12 kwietnia 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Projekt eRka
+
+<p style="text-align:justify;">Entuzjastów R krakowska alternatywa (eRka) - to wyjątkowy  projekt, którego najważniejszym celem jest stworzenie szerokiej społeczności osób związanych z analizą danych.</p>
+
+<p style="text-align:justify;">Działamy od 2014 roku (od marca 2015 pod szyldem fundacji INIME), a naszym głównym obszarem działania jest Małopolska.</p>
+
+## Cele projektu eRka
+
+<p style="text-align:justify;">Chcemy zaoferować analitykom danych (oraz osobom, które chcą nimi zostać) „przestrzeń”, pozwalającą m.in. na zdobycie ciekawych kontaktów, wiedzy, czy też cennego doświadczenia.</p>
+
+<p style="text-align:justify;">Jest to bardzo ważny aspekt w czasach, gdy gwałtownie rozwijają się takie dziedziny jak Data Science, czy Big Data, a miejsc, gdzie można łatwo  szlifować swój warsztat analityczny prawie nie ma.</p>
+
+<p style="text-align:justify;">Wszystkie nasze działania w mniejszym bądź większym stopniu powiązane są także z promocją języka R – obecnie najszybciej rozwijającego się środowiska do obliczeń statystycznych.</p>
+
+## Podsumowanie działalności
+
+* 7 spotkań prelekcji ([materiały](https://github.com/eRkaKrakow/Cracow-R-Users-Meetings))
+
+* 2 maratony analizy danych (z Do-IT Solutions oraz z Onet.pl [promo](https://www.youtube.com/watch?v=fcdAwqaOpB8))
+
+* hackday - krótsza forma maratonu (pracowaliśmy na danych pochodzących ze strony www.sejm.gov.pl)
+
+* spotkanie z firmą McKinsey z Wrocławia
+
+* gościnne prelekcje promujące R: INIME na żywo, PLSSUG Kraków, Studencki Festiwal Informatyczny oraz mikroSFI, Konferencja Ekonometryk
+
+## Podsumowanie działalności cd.
+
+* wywiad w Radio Off Kraków ([materiały](https://www.youtube.com/watch?v=msDuh0Nc-_w))
+
+* warsztaty z podstaw R na Politechnice Krakowskiej - z czasem oferta warsztatów i szkoleń będzie poszerzana także o bardziej komercyjne 
+
+* warsztaty z GIT i podstaw R we współpracy ze społecznością Software Carpentry ([materiały](https://github.com/eRkaKrakow/eRka-workshops))
+
+* otwarte, bezpłatne praktyki przy projekcie eRka (aktualnie mamy dwóch praktykantów) - [OFERTA](http://inime.org/wp-content/uploads/2016/02/INIME_erka-staz.pdf)
+
+* Lider eRka jest w komitecie organizacyjnym europejskiej konferencji użytkowników R - [eRum 2016](http://erum.ue.poznan.pl/)
+
+## Kontakt
+
+[www.erkakrakow.pl](www.erkakrakow.pl)
+
+kontakt@erkakrakow.pl

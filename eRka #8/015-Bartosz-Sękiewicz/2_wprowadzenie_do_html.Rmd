@@ -1,0 +1,118 @@
+---
+title: "Wprowadzenie do HTML"
+author: "Bartosz Sękiewicz"
+date: "12 kwietnia 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Jak to działa?
+
+Prostą stronę internetową można **napisać** już w jednym pliku (tak, ta prezentacja to tylko jeden plik).
+
+Dla utrzymania pewnego porządku stosuje się podział:
+
+* Pliki HTML w których zawarta jest cała treść i struktura strony
+* Pliki CSS w których przechowuje się informacje o formatowaniu poszczególnych elementów strony
+* Pliki JS w których znajduje się m.in. kod definiujący zachowanie elementów strony w reakcji na akcje podejmowane przez użytkownika
+
+Przeglądarka internetowa jest m.in. interpreterem, który przekształca ten kod na miłą dla oka stronę www.
+
+## HyperText Markup Language (HTML)
+
+<p style="text-align:justify;">Hipertekstowy język znaczników za pomocą którego opisuje się strukturę strony. Odpowiada m.in. za podział strony na paragrafy, nagłówki, listy, tabelki. Pozwala na wyświetlanie elementów formularzy oraz hiperłączy do innych stron, dokumentów i elementrów aplikacji webowej.</p>
+
+**Przykładowy znacznik**
+
+    Znacznik 'a' definiuje hiperłącze
+    <a href="http://www.erkakrakow.pl">Tutaj znajduje się strona eRka</a>
+    
+**Efekt działania**
+
+[Tutaj znajduje się strona eRka](http://www.erkakrakow.pl)
+
+ 
+## Struktura HTML
+
+
+    <!DOCTYPE html> <!-- język HTML5 - tak, jest ich znacznie więcej! -->
+    <html>
+        <head>
+            <!-- USTAWIENIA DLA STRONY -->
+            
+            <meta charset="UTF-8">
+            <title>Przykładowa strona www</title>
+        </head>
+        
+        <body>
+            <!-- TREŚĆ STRONY -->
+            
+            Witaj Świecie!
+        </body>
+    </html>
+    
+Więcej informacji o HTML5 można znaleźć [tutaj](http://www.w3schools.com/html/html5_intro.asp) oraz [tutaj](https://pl.wikipedia.org/wiki/HTML5).
+
+## Podstawowe znaczniki
+
+* Znaczniki nagłówka: h1, h2, h3, ...
+* Znacznik paragrafu: p
+* Znacznik nowej lini: br
+* Znacznik hiperłącza: a
+* Znacznik obrazka: img
+* Znaczniki tabeli: table, tr, td
+* Znaczniki listy: ol, ul, li
+
+oraz najważniejszy znacznik:
+
+* Znacznik bloku: div
+
+Więcej informacji o znacznikach można znaleźć [tutaj](http://www.w3schools.com/tags/default.asp).
+
+## Układ strony - HTML4
+
+<img src="http://www.webdesign-gm.co.uk/images/blog/html4-structure.jpg" style="width:800px">
+
+## Układ strony - HTML5
+
+<img src="http://www.webdesign-gm.co.uk/images/blog/html5-structure.jpg" style="width:800px">
+
+## Atrybuty
+
+Własności znaczników. 
+
+* w przypadku znacznika 'a' atrybutem jest 'href' określające linkowany adres
+* w przypadku znacznika 'img' atrybutem jest 'src' określające ścieżkę do obrazka
+
+Niemal każdy znacznik może korzystać z atrybutów 'id', 'class' oraz 'style'.
+
+<p style="color: red; font-weight: bold; text-align: justify;">Atrybut stylu (style) służy do formatowania treści zawartej w znaczniku. W praktyce informacje na temat formatowania przechowywane są w kaskadowych arkuszach stylów (plikach .css) i kojarzone są ze znacznikami za pomocą identyfikatorów (id) i klas (class)<p>
+
+## Atrybuty id oraz class
+
+<p style="text-align:justify;">Identyfikatory oraz klasy są jednymi z najważniejszych elementów z punktu widzenia automatycznego przeglądania treści stron internetowych.</p>
+
+<p style="text-align:justify;">Atrybut **id** jest unikalnym identyfikatorem elementu html. Oznacza to, że daną wartość atrybutu **id** możemy przypisać jedynie jednemu elementowi html na aktualnie wyświetlanej stronie. Aby zaznaczyć, że odnosimy się do danego identyfikatora (np. w CSS) należy go poprzedzić **haszem (#)**.</p>
+
+<p style="text-align:justify;">Atrybut **class** działa analogicznie jak atrybut id, z tą różnicą, że nie musi być zachowana unikalność. Aby zaznaczyć, że odnosimy się do danej klasy (np. w CSS) należy go poprzedzić **kropką**.</p>
+
+## Jak przeglądać kod strony?
+
+* Pokaż źródło strony / Pokaż informacje o stronie
+* Zbadaj element, czyli wbudowane w przeglądarkę narzędzia dla programistów (teraz każda przeglądarka takie narzędzia posiada)
+* Dodatki, czy rozszerzenia takie jak Firebug, czy SelectorGadget (tylko Chrome)
+
+## ...
+
+## ...
+
+## GET i POST
+
+GET - komunikacja za pomocą paska adresu - przekazywanie parametrów obsługujących stronę. Ma ograniczenia ze względu na długość i strukturę danych - tylko tekst.
+
+POST - komunikacja za pomocą formularzy - przekazywanie danych, plików etc.
+
+Obie metody są jawne, także nie chronią przesyłanej treści - przy czym z metodą post trzeba bardziej "pokombinować".

@@ -1,0 +1,99 @@
+---
+title: "Pakiet rvest"
+author: "Bartosz Sękiewicz"
+date: "12 kwietnia 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Wprowadzenie
+
+Pakiet [rvest](https://github.com/hadley/rvest) służy do sczytywania informacji ze stron internetowych. 
+
+Został stworzony w taki sposób aby maksymalnie ułatwić prace nad pobieraniem treści (mała liczba funkcji, czy wykorzystanie pakietu [magrittr](https://github.com/smbache/magrittr), który wprowadza pseudo pipe). 
+
+rvest inspirowany pakietami pythona takimi jak beautiful soup.
+
+
+## Przykład
+
+
+```{r, echo = TRUE}
+# Wczytanie pakietu
+library(rvest) 
+
+# Pobranie treści strony (Wilk z Wall Street)
+movie <- read_html("http://www.imdb.com/title/tt0099348/")
+```
+
+
+## Przykład cd.
+
+```{r, eval = FALSE}
+rating <- as.numeric(html_text(html_nodes(movie, ".ratingValue strong span")))
+```
+
+```{r, echo = TRUE}
+# Wyciąganie z treści strony informacji na temat ogólnej oceny filmu
+rating <- movie %>% # dane wejściowe
+    # poszukujemy kombinacji znaczników strong i span
+    # znacznik span ma być bezpośrednio zawarty w znaczniku strong
+  html_nodes(".ratingValue strong span") %>%
+    # pobieramy treść znacznika span
+  html_text() %>%
+    # konwertujemy wynik na liczbę, ponieważ wynik to tekst
+  as.numeric()
+rating
+```
+
+<p style="text-align:justify;">Jak widać jest tylko jedna kombinacja strong span na stronie i zawiera ona informacje na temat ogólnej oceny filmu. Czy założenie jest spełnione zawsze?</p>
+
+
+## Przykład cd.
+
+
+```{r, echo = TRUE}
+cast <- movie %>% # dane wejściowe
+    # poszukujemy kombinacji znacznika z identyfikatorem titleCast
+    # znacznika klasy itemprop i znacznika span - musi być zachowane
+    # zawieranie się w sobie
+  html_nodes("#titleCast .itemprop span") %>%
+    # pobieramy treść znacznika span
+  html_text()
+cast
+```
+
+<p style="text-align:justify;">Oczywiście jest więcej niż jedna kombinacja znaczników, dlatego otrzymaliśmy wynik w postaci wektora.</p>
+
+## Przykład cd.
+
+
+```{r, echo = TRUE}
+poster_link <- movie %>%
+    # poszukujemy kombinacji znacznika z klasy poster, znacznika a
+    # oraz znacznika img - musi być zachowane zawieranie się w sobie    
+  html_nodes(".poster a img") %>%
+    # tym razem nie interesuje nas treść znacznika, a wartość jego 
+    # atrybutu, czyli adres do obrazka, który przechowywany jest 
+    # jako atrybut src
+  html_attr("src")
+poster_link
+```
+
+## Przykład cd.
+
+```{r}
+library(downloader)
+library(jpeg)
+
+img_path <- tempfile()
+download(poster_link, img_path, mode = "wb")
+img <- readJPEG(img_path, TRUE)
+
+plot(1:2, type='n', frame.plot = FALSE, axes = FALSE, xlab = "", ylab = "", asp = 268/182)
+rasterImage(img,1,1,2,2)
+
+```

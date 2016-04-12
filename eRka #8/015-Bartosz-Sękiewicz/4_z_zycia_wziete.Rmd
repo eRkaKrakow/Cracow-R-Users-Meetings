@@ -1,0 +1,33 @@
+---
+title: "Przykłady z życia wzięte"
+author: "Bartosz Sękiewicz"
+date: "12 kwietnia 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Kolejki NFZ
+
+## Opis problemu
+
+* Informacje o średnim czasie oczekiwania na świadczenia wykonywane w ramach NFZ, a także czas do nabliżej wizyty można sprawdzić pod adresem http://kolejki.nfz.gov.pl/
+* 'Zrzut' bazy jest wykonywany raz na miesiąc i pliki XLSX w postaci spakowanych ZIP (osobno dla każdego województwa) są udostępiane pod [tym adresem](http://kolejki.nfz.gov.pl/Informator/PobierzDane/Index/)
+* Niestety z każdą kolejną aktualizacją stare pliki są nadpisywane, oznacza to, że aby mieć dane historyczne to trzeba raz na miesiąc takie dane pobierać
+* Mam dane od 2012, ale ostatnio nie zajmuję się tym tematem, także zdarzyło mi się dwa razy przegapić aktualizacje
+
+## Rozwiązanie
+
+* Skrypt w R, który uruchamia się raz na dwa tygodnie i pobiera te dane na komputer
+
+* Początkowo, próba implementacji algorytmu w Excelu, ale nie bylo możliwości przechwycenia okienka, które wyświetla się po kliknięciu na link (gdzie zapisać pliki)
+* Problemy pojawiły się także podczas implementacji algorytmu w R, ponieważ linki do plików nie są w prosty sposób dostępne
+* Ostatecznie udało się dzięki narzędziom dla developerów wbudowanych w przeglądarkę!
+
+# Baza Rekomendacji
+
+## Opis problemu
+
+* 
