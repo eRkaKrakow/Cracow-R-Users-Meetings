@@ -1,7 +1,7 @@
 ---
 title: "Pakiet rvest"
 author: "Bartosz Sękiewicz"
-date: "12 kwietnia 2016"
+date: "14 kwietnia 2016"
 output: ioslides_presentation
 ---
 
@@ -26,9 +26,22 @@ rvest inspirowany pakietami pythona takimi jak beautiful soup.
 library(rvest) 
 
 # Pobranie treści strony (Wilk z Wall Street)
-movie <- read_html("http://www.imdb.com/title/tt0099348/")
+movie <- read_html("http://www.imdb.com/title/tt0993846/")
 ```
 
+## Pseudo pipe
+
+Pipe pozwala przede wszystkim na czytelniejsze pisanie kodu i jego komentowanie.
+
+**z = f(x, y)**
+    
+    to to samo, co
+    
+**z = x %>% f(y)**
+    
+    lub
+    
+**z = y %>% f(x, .)**
 
 ## Przykład cd.
 
@@ -39,8 +52,8 @@ rating <- as.numeric(html_text(html_nodes(movie, ".ratingValue strong span")))
 ```{r, echo = TRUE}
 # Wyciąganie z treści strony informacji na temat ogólnej oceny filmu
 rating <- movie %>% # dane wejściowe
-    # poszukujemy kombinacji znaczników strong i span
-    # znacznik span ma być bezpośrednio zawarty w znaczniku strong
+    # poszukujemy klasy ratingValue i znaczników strong i span
+    # musi być zachowane zawieranie, ale nie bezpośrednie
   html_nodes(".ratingValue strong span") %>%
     # pobieramy treść znacznika span
   html_text() %>%
@@ -49,7 +62,7 @@ rating <- movie %>% # dane wejściowe
 rating
 ```
 
-<p style="text-align:justify;">Jak widać jest tylko jedna kombinacja strong span na stronie i zawiera ona informacje na temat ogólnej oceny filmu. Czy założenie jest spełnione zawsze?</p>
+<p style="text-align:justify;">Jest tylko jedna kombinacja strong span na stronie i zawiera ona informacje na temat ogólnej oceny filmu. Czy założenie jest spełnione zawsze?</p>
 
 
 ## Przykład cd.
@@ -58,8 +71,7 @@ rating
 ```{r, echo = TRUE}
 cast <- movie %>% # dane wejściowe
     # poszukujemy kombinacji znacznika z identyfikatorem titleCast
-    # znacznika klasy itemprop i znacznika span - musi być zachowane
-    # zawieranie się w sobie
+    # znacznika klasy itemprop i znacznika span
   html_nodes("#titleCast .itemprop span") %>%
     # pobieramy treść znacznika span
   html_text()

@@ -1,7 +1,7 @@
 ---
 title: "Przykłady z życia wzięte"
 author: "Bartosz Sękiewicz"
-date: "12 kwietnia 2016"
+date: "14 kwietnia 2016"
 output: ioslides_presentation
 ---
 
@@ -13,21 +13,119 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Opis problemu
 
-* Informacje o średnim czasie oczekiwania na świadczenia wykonywane w ramach NFZ, a także czas do nabliżej wizyty można sprawdzić pod adresem http://kolejki.nfz.gov.pl/
-* 'Zrzut' bazy jest wykonywany raz na miesiąc i pliki XLSX w postaci spakowanych ZIP (osobno dla każdego województwa) są udostępiane pod [tym adresem](http://kolejki.nfz.gov.pl/Informator/PobierzDane/Index/)
-* Niestety z każdą kolejną aktualizacją stare pliki są nadpisywane, oznacza to, że aby mieć dane historyczne to trzeba raz na miesiąc takie dane pobierać
-* Mam dane od 2012, ale ostatnio nie zajmuję się tym tematem, także zdarzyło mi się dwa razy przegapić aktualizacje
+* Informacje o średnim czasie oczekiwania są dostępne pod adresem http://kolejki.nfz.gov.pl
+* Raz na miesiąc robione są zrzuty z bazy, które udostępniane są pod [tym adresem](http://kolejki.nfz.gov.pl/Informator/PobierzDane/Index/)
+* Pliki są nadpisywane, także aby móc przeanalizować dane historyczne trzeba je poprostu systematycznie pobierać
+* Dane są udostępniane od lutego 2012 (posiadam wszystkie paczki, jednakże ostatnio miałem słabą pamięć i pominąłem dwie aktualizacje)
 
 ## Rozwiązanie
 
-* Skrypt w R, który uruchamia się raz na dwa tygodnie i pobiera te dane na komputer
+* Dawno temu próbowałem pobierać te pliki za pomocą VBA - pojawił się problem przy przechwytywaniu okienka "zapisz plik"
+* Jakiś czas później próbowałem to zrobić za pomocą R - pojawił się problem z odnalezieniem bezpośrednich linków do plików
+* Przez przypadek rozwiązanie pojawiło się samo, dzięki wykorzystaniu wbudowanych narzędzi do analizy stron internetowych
 
-* Początkowo, próba implementacji algorytmu w Excelu, ale nie bylo możliwości przechwycenia okienka, które wyświetla się po kliknięciu na link (gdzie zapisać pliki)
-* Problemy pojawiły się także podczas implementacji algorytmu w R, ponieważ linki do plików nie są w prosty sposób dostępne
-* Ostatecznie udało się dzięki narzędziom dla developerów wbudowanych w przeglądarkę!
+**EFEKT**
+
+Krótki skrypt R został dodany do zadań (za pomocą dodatku) i sam się uruchamia raz na tydzień - patrz plik pliki/kolejki_nfz.R
 
 # Baza Rekomendacji
 
 ## Opis problemu
 
-* 
+* W większości państw istnieją odpowiedniki polskiej agencji oceny technologii medycznych
+* W ramach oceny leku, który "stara się" o refundacje tworzone są raporty HTA
+* Finalnie, uwzględniając różne aspekty (w tym ekonomiczne, kliniczne i bezpieczeństwa) dany lek lub technologia otrzymuje od agencji rekomednację pozytywną lub negatywną
+* Przy tworzeniu raportu HTA chcielibyśmy wiedzieć jakie rekomendacje otrzymał dany lek od najważniejszych agencji HTA na świecie
+
+## Opis problemu cd.
+
+* Stworzona została baza rekomendacji w oparciu o Postgresa
+* Baza była uzupełniana raz na miesiąc przez jednego z analityków, który przeglądał strony ośmiu agencji i poszukiwał nowych rekomendacji
+* Czas poświęcony na aktualizację to około 1-2 dni robocze
+
+## Rozwiązanie
+
+* Przeniesienie bazy do Elastic, dzięki czemu najważniejszym elementem aktualizacji stało się poszukiwanie plików pdf (rekomendacje zazwyczaj w takich plikach się znajdują)
+* Stworzenie pakietu R, który automatycznie przeszukuje strony agencji w poszukiwaniu plików pdf (i dodatkowych, ciekawych danych - o ile takie są dostępne)
+* Z uwagi na to, że baza rekomendacji stoi na serwerze, utworzyliśmy skrypt R, który w każdą niedzielną noc przeszukuje strony agencji i aktualizuje bazę (czas pracy skryptu to około 3 godziny, przy czym każdorazowo pobierana jest cała zawartość stron)
+
+## Przy okazji...
+
+* Okazało się, że stara metodyka była bardzo kiepska, ponieważ stare wpisy na stronach agencji ulegały także aktualizacji
+* Czas poświęcony na napisanie biblioteki to około 10 dni roboczych (sporo nowych elementów)
+* Niestety nie jest to ostateczny czas jaki będzie poświęcony na obsługę narzędzia, ponieważ strony się zmieniają (w ciągu pół roku 5 na 8 agencji zmieniło nieznacznie lub całkowicie wygląd swojego serwisu)
+
+# Kilka przypadków
+
+## Status sesji
+
+```{r}
+library(rvest)
+```
+
+```{r, echo=TRUE}
+s <- html_session("http://erkakrakow.pl")
+s$response$status_code
+s <- html_session("http://erkakrakow.pl/1")
+s$response$status_code
+```
+
+## Obsługa błędów
+
+```{r, echo=TRUE}
+e <- try(s <- html_session("http://erkakrako.pl/"))
+class(e)
+```
+
+## Tabela na jednej stronie
+
+Wiersze są ukrywane i odkrywane za pomocą JS, który zmienia klasy znaczników.
+
+```{r, echo=TRUE}
+s <- html_session("https://www.nice.org.uk/guidance/published")
+tabela <- s %>%
+    html_node("table") %>%
+    html_table()
+nrow(tabela)
+```
+
+## Tabela na jednej stronie
+
+Liczba wyświetlanych wierszy jest przekazywana przez link i nie ma żadnych zabezpieczeń na tą wartość
+
+http://www.scottishmedicines.org.uk/SMC_Advice/
+Advice_Directory/SMC_Advice_Directory?p=0&r=10000&s=&
+o=&ds=Y&searchtext=Enter+keywords%3A&
+category=&submissionType=&fromDate=From%3A&
+toDate=To%3A&acceptedForUseCheck=Y&
+acceptedForRestrictedUseCheck=Y&
+notRecommendedForUseCheck=Y&withdrawnCheck=Y&
+supersededCheck=Y
+
+**Na to trzeba także uważać, ponieważ wyświetlenie jednorazowo tak dużej tabeli może zająć kila, czy kilkanaście minut.**
+
+## Mini tabelki bez identyfikatorów
+
+```{r, echo=TRUE}
+library(stringi)
+
+link <- "http://www.scottishmedicines.org.uk/SMC_Advice/Advice/Abacavir__Ziagen_/Abacavir_300mg_tablets__Ziagen__"
+s <- html_session(link)
+
+rekomendacje <- data.frame(stringsAsFactors = FALSE)
+
+tabela <- s %>% 
+    html_nodes("#mainContent table") %>% 
+    .[[1]] %>% 
+    html_table(fill = T, trim = TRUE)
+```
+
+Dalsza część kodu w pliku pliki/baza_rekomendacji_example.R
+
+## Chwile załamania
+
+Jedna z baz może okazać się nie do pobrania?
+
+http://www.pbs.gov.au/pbs/industry/listing/elements/pbac-meetings/pbac-outcomes
+
+## Gumtree - soon

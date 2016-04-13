@@ -100,7 +100,7 @@ s <- html_session(link, httr::user_agent(uastring))
 # http://nessy.info/?p=119, czyli python i tor
 
 
-# Symulacja przeglądarki na poważnie: ---------------------------------------
+# Symulacja przeglądarki 2: -------------------------------------------------
 
 link_to_png <- "https://www.analizy.pl/fundusze/images/quotes/73dbed140062fa1d1ce36cb2ec53f3ed.png"
 

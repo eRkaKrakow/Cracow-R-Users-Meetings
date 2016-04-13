@@ -88,7 +88,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">12 kwietnia 2016</p>
+            <p style="margin-top: 6px; margin-left: -2px;">14 kwietnia 2016</p>
           </hgroup>
   </slide>
 
@@ -97,24 +97,128 @@
 </article></slide><slide class=''><hgroup><h2>Opis problemu</h2></hgroup><article  id="opis-problemu">
 
 <ul>
-<li>Informacje o średnim czasie oczekiwania na świadczenia wykonywane w ramach NFZ, a także czas do nabliżej wizyty można sprawdzić pod adresem <a href='http://kolejki.nfz.gov.pl/' title=''>http://kolejki.nfz.gov.pl/</a></li>
-<li>&#39;Zrzut&#39; bazy jest wykonywany raz na miesiąc i pliki XLSX w postaci spakowanych ZIP (osobno dla każdego województwa) są udostępiane pod <a href='http://kolejki.nfz.gov.pl/Informator/PobierzDane/Index/' title=''>tym adresem</a></li>
-<li>Niestety z każdą kolejną aktualizacją stare pliki są nadpisywane, oznacza to, że aby mieć dane historyczne to trzeba raz na miesiąc takie dane pobierać</li>
-<li>Mam dane od 2012, ale ostatnio nie zajmuję się tym tematem, także zdarzyło mi się dwa razy przegapić aktualizacje</li>
+<li>Informacje o średnim czasie oczekiwania są dostępne pod adresem <a href='http://kolejki.nfz.gov.pl' title=''>http://kolejki.nfz.gov.pl</a></li>
+<li>Raz na miesiąc robione są zrzuty z bazy, które udostępniane są pod <a href='http://kolejki.nfz.gov.pl/Informator/PobierzDane/Index/' title=''>tym adresem</a></li>
+<li>Pliki są nadpisywane, także aby móc przeanalizować dane historyczne trzeba je poprostu systematycznie pobierać</li>
+<li>Dane są udostępniane od lutego 2012 (posiadam wszystkie paczki, jednakże ostatnio miałem słabą pamięć i pominąłem dwie aktualizacje)</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Rozwiązanie</h2></hgroup><article  id="rozwiazanie">
 
 <ul>
-<li><p>Skrypt w R, który uruchamia się raz na dwa tygodnie i pobiera te dane na komputer</p></li>
-<li>Początkowo, próba implementacji algorytmu w Excelu, ale nie bylo możliwości przechwycenia okienka, które wyświetla się po kliknięciu na link (gdzie zapisać pliki)</li>
-<li>Problemy pojawiły się także podczas implementacji algorytmu w R, ponieważ linki do plików nie są w prosty sposób dostępne</li>
-<li><p>Ostatecznie udało się dzięki narzędziom dla developerów wbudowanych w przeglądarkę</p></li>
+<li>Dawno temu próbowałem pobierać te pliki za pomocą VBA - pojawił się problem przy przechwytywaniu okienka &quot;zapisz plik&quot;</li>
+<li>Jakiś czas później próbowałem to zrobić za pomocą R - pojawił się problem z odnalezieniem bezpośrednich linków do plików</li>
+<li>Przez przypadek rozwiązanie pojawiło się samo, dzięki wykorzystaniu wbudowanych narzędzi do analizy stron internetowych</li>
 </ul>
+
+<p><strong>EFEKT</strong></p>
+
+<p>Krótki skrypt R został dodany do zadań (za pomocą dodatku) i sam się uruchamia raz na tydzień - patrz plik pliki/kolejki_nfz.R</p>
 
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Baza Rekomendacji</h2></hgroup><article  id="baza-rekomendacji">
 
-</article></slide><slide class=''><hgroup><h2>Opis problemu</h2></hgroup><article  id="opis-problemu-1"></article></slide>
+</article></slide><slide class=''><hgroup><h2>Opis problemu</h2></hgroup><article  id="opis-problemu-1">
+
+<ul>
+<li>W większości państw istnieją odpowiedniki polskiej agencji oceny technologii medycznych</li>
+<li>W ramach oceny leku, który &quot;stara się&quot; o refundacje tworzone są raporty HTA</li>
+<li>Finalnie, uwzględniając różne aspekty (w tym ekonomiczne, kliniczne i bezpieczeństwa) dany lek lub technologia otrzymuje od agencji rekomednację pozytywną lub negatywną</li>
+<li>Przy tworzeniu raportu HTA chcielibyśmy wiedzieć jakie rekomendacje otrzymał dany lek od najważniejszych agencji HTA na świecie</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Opis problemu cd.</h2></hgroup><article  id="opis-problemu-cd.">
+
+<ul>
+<li>Stworzona została baza rekomendacji w oparciu o Postgresa</li>
+<li>Baza była uzupełniana raz na miesiąc przez jednego z analityków, który przeglądał strony ośmiu agencji i poszukiwał nowych rekomendacji</li>
+<li>Czas poświęcony na aktualizację to około 1-2 dni robocze</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Rozwiązanie</h2></hgroup><article  id="rozwiazanie-1">
+
+<ul>
+<li>Przeniesienie bazy do Elastic, dzięki czemu najważniejszym elementem aktualizacji stało się poszukiwanie plików pdf (rekomendacje zazwyczaj w takich plikach się znajdują)</li>
+<li>Stworzenie pakietu R, który automatycznie przeszukuje strony agencji w poszukiwaniu plików pdf (i dodatkowych, ciekawych danych - o ile takie są dostępne)</li>
+<li>Z uwagi na to, że baza rekomendacji stoi na serwerze, utworzyliśmy skrypt R, który w każdą niedzielną noc przeszukuje strony agencji i aktualizuje bazę (czas pracy skryptu to około 3 godziny, przy czym każdorazowo pobierana jest cała zawartość stron)</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Przy okazji&#8230;</h2></hgroup><article  id="przy-okazji...">
+
+<ul>
+<li>Okazało się, że stara metodyka była bardzo kiepska, ponieważ stare wpisy na stronach agencji ulegały także aktualizacji</li>
+<li>Czas poświęcony na napisanie biblioteki to około 10 dni roboczych (sporo nowych elementów)</li>
+<li>Niestety nie jest to ostateczny czas jaki będzie poświęcony na obsługę narzędzia, ponieważ strony się zmieniają (w ciągu pół roku 5 na 8 agencji zmieniło nieznacznie lub całkowicie wygląd swojego serwisu)</li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Kilka przypadków</h2></hgroup><article  id="kilka-przypadkow">
+
+</article></slide><slide class=''><hgroup><h2>Status sesji</h2></hgroup><article  id="status-sesji">
+
+<pre >## Loading required package: xml2</pre>
+
+<pre class = 'prettyprint lang-r'>s &lt;- html_session(&quot;http://erkakrakow.pl&quot;)
+s$response$status_code</pre>
+
+<pre >## [1] 200</pre>
+
+<pre class = 'prettyprint lang-r'>s &lt;- html_session(&quot;http://erkakrakow.pl/1&quot;)</pre>
+
+<pre >## Warning in request_GET(session, url): Not Found (HTTP 404).</pre>
+
+<pre class = 'prettyprint lang-r'>s$response$status_code</pre>
+
+<pre >## [1] 404</pre>
+
+</article></slide><slide class=''><hgroup><h2>Obsługa błędów</h2></hgroup><article  id="obsuga-bedow">
+
+<pre class = 'prettyprint lang-r'>e &lt;- try(s &lt;- html_session(&quot;http://erkakrako.pl/&quot;))
+class(e)</pre>
+
+<pre >## [1] &quot;try-error&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Tabela na jednej stronie</h2></hgroup><article  id="tabela-na-jednej-stronie">
+
+<p>Wiersze są ukrywane i odkrywane za pomocą JS, który zmienia klasy znaczników.</p>
+
+<pre class = 'prettyprint lang-r'>s &lt;- html_session(&quot;https://www.nice.org.uk/guidance/published&quot;)
+tabela &lt;- s %&gt;%
+    html_node(&quot;table&quot;) %&gt;%
+    html_table()
+nrow(tabela)</pre>
+
+<pre >## [1] 1166</pre>
+
+</article></slide><slide class=''><hgroup><h2>Tabela na jednej stronie</h2></hgroup><article  id="tabela-na-jednej-stronie-1">
+
+<p>Liczba wyświetlanych wierszy jest przekazywana przez link i nie ma żadnych zabezpieczeń na tą wartość</p>
+
+<p><a href='http://www.scottishmedicines.org.uk/SMC_Advice/' title=''>http://www.scottishmedicines.org.uk/SMC_Advice/</a> Advice_Directory/SMC_Advice_Directory?p=0&amp;r=10000&amp;s=&amp; o=&amp;ds=Y&amp;searchtext=Enter+keywords%3A&amp; category=&amp;submissionType=&amp;fromDate=From%3A&amp; toDate=To%3A&amp;acceptedForUseCheck=Y&amp; acceptedForRestrictedUseCheck=Y&amp; notRecommendedForUseCheck=Y&amp;withdrawnCheck=Y&amp; supersededCheck=Y</p>
+
+<p><strong>Na to trzeba także uważać, ponieważ wyświetlenie jednorazowo tak dużej tabeli może zająć kila, czy kilkanaście minut.</strong></p>
+
+</article></slide><slide class=''><hgroup><h2>Mini tabelki bez identyfikatorów</h2></hgroup><article  id="mini-tabelki-bez-identyfikatorow">
+
+<pre class = 'prettyprint lang-r'>library(stringi)
+
+link &lt;- &quot;http://www.scottishmedicines.org.uk/SMC_Advice/Advice/Abacavir__Ziagen_/Abacavir_300mg_tablets__Ziagen__&quot;
+s &lt;- html_session(link)
+
+rekomendacje &lt;- data.frame(stringsAsFactors = FALSE)
+
+tabela &lt;- s %&gt;% 
+    html_nodes(&quot;#mainContent table&quot;) %&gt;% 
+    .[[1]] %&gt;% 
+    html_table(fill = T, trim = TRUE)</pre>
+
+<p>Dalsza część kodu w pliku pliki/baza_rekomendacji_example.R</p>
+
+</article></slide><slide class=''><hgroup><h2>Chwile załamania</h2></hgroup><article  id="chwile-zaamania">
+
+<p>Jedna z baz może okazać się nie do pobrania?</p>
+
+<p><a href='http://www.pbs.gov.au/pbs/industry/listing/elements/pbac-meetings/pbac-outcomes' title=''>http://www.pbs.gov.au/pbs/industry/listing/elements/pbac-meetings/pbac-outcomes</a></p>
+
+</article></slide><slide class=''><hgroup><h2>Gumtree - soon</h2></hgroup><article  id="gumtree---soon"></article></slide>
 
 
   <slide class="backdrop"></slide>

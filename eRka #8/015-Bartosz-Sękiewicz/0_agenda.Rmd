@@ -1,0 +1,24 @@
+---
+title: "AGENDA"
+author: "Bartosz Sękiewicz"
+date: "14 kwietnia 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Agenda
+
+* Kilka ogłoszeń
+    * Bezpłatne praktyki w INIME
+    * \#9 spotkanie 19 maja na UEKu
+    * Poszukiwani prelegenci na spotkanie \#10
+* Wprowadzenie do HTML (nie takie szybkie)
+* Pakiet rvest na przykładzie imdb.com oraz analitycy.pl
+* Z życia wzięte na przykładzie kolejek NFZ i bazy rekomendacji HTA
+
+Materiały z prezentacji dostępne są pod [tym adresem](https://github.com/eRkaKrakow/Cracow-R-Users-Meetings).
+
+Pod [tym adresem](www.github.com/eRkaKrakow) jest możliwa dyskusja na temat dzisiejszego spotkania.
