@@ -1,4 +1,4 @@
-﻿We are happy to announce tenth eRka meetup. If there will be interest from non-polish speakers then presentations will be delivered in English.
+We are happy to announce tenth eRka meetup. If there will be interest from non-polish speakers then presentations will be delivered in English.
 
 ### WHEN?
 
