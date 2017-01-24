@@ -1,0 +1,181 @@
+---
+title: "R + Postgres + Docker"
+author: "Bartosz Sękiewicz"
+date: "24 stycznia 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Dlaczego?
+
+* Temat jest zebraniem kilku wcześniejszych prelekcji/warsztatów (GIT, pakiet rvest, Docker)
+* Projekt daje możliwość poznania/przećwiczenia wielu narzędzi (Linux / Bash / GIT / Docker / Postgres itd...)
+
+## Cel projektu
+
+Zbudowanie narzędzia, które pobiera dane z serwisu gumtree:
+
+* Dostęp do danych on-line
+* Automatyczna aktualizacja (co najmniej kilka razy dziennie)
+
+Dla uproszczenia skupiamy się na tej kategorii:
+
+* https://www.gumtree.pl/s-mieszkania-i-domy-sprzedam-i-kupie/krakow/v1c9073l3200208p1
+
+## Schemat prezentacji
+
+* Etap 1
+* Etap 2
+* Etap 3
+* Etap 5
+* Etap 4 (idea)
+
+Pokażemy działanie większości etapów na żywo!
+
+## OGRANICZENIA
+
+* Automatyczna aktualizacja jest możliwa jedynie dzięki dostępowi do serwera dedykowanego z przypisanym adresem IP
+* Pomijam całkowicie kwestie bezpieczeństwa (nie przejmuję się hasłami i poziomami dostępu do poszczególnych plików)
+
+## Etap 1 = Projekt w R
+
+https://github.com/bsekiewicz/gumtree-parser/tree/master/projekt-1
+
+- Projekt R ze skryptami działającymi lokalnie (pakiet rvest)
+- Wyniki parsowania przechowywane są lokalnie w plikach .csv
+- Zarządzanie zadaniami możliwe za pomocą Menedżera Zadań (Windows) lub CRON (Linux)
+- Zarządzanie zadaniami można ustawić za pomocą dodatku RStudio: Task ScheduleR
+
+Moje pierwsze doświadczenia z zabawą w pobieranie treści z internetu...
+
+## Etap 1
+
+Prezentacja...
+
+## Etap 1 - wady
+
+- Aktualizacja wymaga włączonego komputera (można obejść)
+- Wyniki nie są dostępne on-line (można obejść)
+
+## Słowo o GIT
+
+https://git-scm.com/book/pl/v1/Pierwsze-kroki-Wprowadzenie-do-kontroli-wersji
+
+```
+System kontroli wersji śledzi wszystkie zmiany dokonywane na pliku 
+(lub plikach) i umożliwia przywołanie dowolnej wcześniejszej wersji.
+```
+
+- git status
+- git add
+- git commit
+
+## Słowo o Docker
+
+https://www.docker.com/
+
+```
+Docker jest określany jako narzędzie, które pozwala umieścić program 
+oraz jego zależności w lekkim, przenośnym, wirtualnym kontenerze, 
+który można uruchomić na prawie każdym serwerze z systemem Linux
+```
+
+Wikipedia
+
+```
+docker pull rocker/hadleyverse
+docker run --name RStudio -p 8787:8787 rocker/hadleyverse
+```
+
+## Etap 2 - dodajemy Dockera
+
+i przenosimy projekt na serwer dedykowany (prawie w jednej linijce)
+
+https://github.com/bsekiewicz/gumtree-parser/tree/master/projekt-2
+
+- To samo co Etap 1, ale w kontenerze z RStudio
+- Pliki .csv są wysyłane cyklicznie na GitHuba
+
+## Etap 2
+
+Prezentacja...
+
+## Etap 2 - wady
+
+```
+remote: warning: GH001: Large files detected. You may want to
+try Git Large File Storage - https://git-lfs.github.com. 
+remote: warning: See http://git.io/iEPt8g for more information.
+```
+
+Alternatywa: Dysk Google (komunikacja za pomocą API)
+
+- niby gotowe środowisko do pracy, a jest problem np. z rvest
+- Docker jest fajny, ale kilkukrotnie musiałem robić reinstall systemu :(
+
+## Etap 3 - csv => Postgres
+
+R bezpośrednio w Postgresql (rozszerzenie plr http://www.joeconway.com/plr/)
+
+https://github.com/bsekiewicz/gumtree-parser/tree/master/projekt-3
+
+- Kontener z Postgresem i R
+- Skrypty z R przepisujemy do plr (prawie kopiuj / wklej)
+- Zarządzanie bazą za pomocą wyzwalaczy i CRONa
+
+Postawienie tej bazy to już na prawdę jedna linia kodu!
+
+## Etap 3
+
+Prezentacja...
+
+## Etap 3 - wady
+
+Jakieś sugesie?
+
+## Etap 3 - wady
+
+Tworzenie kodu R i jego debugowanie!
+
+Dobrze byłoby pisać kod R w RStudio (np. tworzyć biblioteki), a w plr / psql / sql to co niezbędne (korzystać tylko z wyników działania funkcji bibliotek).
+
+## Etap 5 - dodawanie modułów
+
+Rozbudowujemy aplikację za pomocą docker-compose
+
+https://github.com/bsekiewicz/gumtree-parser/tree/master/projekt-5-ext
+
+## Etap 4 - IDEA na rozdzielenie bazy od R
+
+Rozdzielamy R od Postgresa za pomocą docker-compose
+
+https://github.com/bsekiewicz/gumtree-parser/tree/master/projekt-4
+
+- kontener bazy danych
+- kontener z R, który ma za zadanie odpalanie skryptów (odpal i zamknij się)
+- kontener CRON, który zarządza kontenerami R
+
+Niestety nie można zachować rozszerzenia plr. Obsługa komunikacji z bazą danych przeniesiona na pakiet RPostgreSQL.
+
+## Etap 6
+
+a może coś innego niż Postgresql?
+
+## Zagadnienia dodatkowe!
+
+- Logi (JSON lub pakiet futile.logger)
+
+ERROR [2017-03-10 16:03:40] Zła data!
+
+- Backup
+
+## Podsumowanie
+
+Warto jest poznać Dockera!
+
+##
+
+Dziękuję za uwagę!
