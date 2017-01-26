@@ -35,6 +35,8 @@ Dla uproszczenia skupiamy się na tej kategorii:
 
 Pokażemy działanie większości etapów na żywo!
 
+Materiały dostępne są pod adresem: https://github.com/bsekiewicz/gumtree-parser
+
 ## OGRANICZENIA
 
 * Automatyczna aktualizacja jest możliwa jedynie dzięki dostępowi do serwera dedykowanego z przypisanym adresem IP
