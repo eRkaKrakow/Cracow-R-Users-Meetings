@@ -1,0 +1,1 @@
+Kod do aplikacji dostêpny jest na stronie [https://github.com/DSkrzypiec/ReportGenerator](github.com/DSkrzypiec/ReportGenerator)
