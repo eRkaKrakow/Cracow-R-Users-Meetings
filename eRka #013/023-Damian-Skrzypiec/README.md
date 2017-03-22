@@ -1,1 +1,1 @@
-Kod do aplikacji dostêpny jest na stronie [https://github.com/DSkrzypiec/ReportGenerator](github.com/DSkrzypiec/ReportGenerator)
+Kod do aplikacji dostêpny jest na stronie [github.com/DSkrzypiec/ReportGenerator](https://github.com/DSkrzypiec/ReportGenerator)
