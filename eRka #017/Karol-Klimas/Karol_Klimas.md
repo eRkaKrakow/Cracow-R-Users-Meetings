@@ -1,0 +1,1 @@
+Prezentacja dostępna pod adresem: https://github.com/eRkaKrakow/WhyR_Hamburg

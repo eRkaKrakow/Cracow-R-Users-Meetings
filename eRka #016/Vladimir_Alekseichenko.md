@@ -1,0 +1,1 @@
+Prezentacja dostępna pod adresem: https://www.dropbox.com/s/urxijzhpblwx2fn/programmer2.0.pptx?dl=0
