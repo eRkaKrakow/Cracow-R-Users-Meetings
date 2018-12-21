@@ -115,6 +115,6 @@ remDr$navigate("http://www.free-ocr.com/")
 
 # TESSERACT -----------------------------------------------------------------
 
-source("https://rawgit.com/greenore/initR/master/init.R")
+source("https://cdn.jsdelivr.net/gh/greenore/initR/init.R")
 packagesGithub(c("systemR", "ocR"), repo_name="greenore")
 
